@@ -7,12 +7,14 @@ import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgr
 import { varAlpha } from 'src/theme/styles';
 import { AuthLayout } from 'src/layouts/auth';
 import { DashboardLayout } from 'src/layouts/dashboard';
+import ProtectedRoute from 'src/components/ProtectedRoute';
 
 // ----------------------------------------------------------------------
 
 export const HomePage = lazy(() => import('src/pages/home'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
 export const UserPage = lazy(() => import('src/pages/user'));
+export const DatabasePage = lazy(() => import('src/pages/database'));
 export const SignInPage = lazy(() => import('src/pages/sign-in'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
@@ -43,10 +45,19 @@ export function Router() {
         </DashboardLayout>
       ),
       children: [
-        { element: <HomePage />, index: true },
-        { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'blog', element: <BlogPage /> },
+        { path: '/', element: <Navigate to="/validation" /> },
+        { path: 'validation', element:  
+          (
+            <ProtectedRoute>
+              <UserPage />
+            </ProtectedRoute>
+          )
+        },
+        { path: 'report', element: (
+          <ProtectedRoute>
+            <DatabasePage />
+          </ProtectedRoute>
+        ) },
       ],
     },
     {

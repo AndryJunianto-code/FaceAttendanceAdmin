@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 
 import { CONFIG } from 'src/config-global';
+import { DatabaseView } from 'src/sections/user/view/database-view';
 
-import { UserView } from 'src/sections/user/view';
 
 // ----------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ export default function Page() {
         <title>Face Recognition Admin</title>
       </Helmet>
 
-      <UserView />
+      <DatabaseView />
     </>
   );
 }

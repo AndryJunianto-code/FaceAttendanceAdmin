@@ -17,16 +17,7 @@ export function NavUpgrade({ sx, ...other }: StackProps) {
       sx={{ mb: 4, textAlign: 'center', ...sx }}
       {...other}
     >
-      <Typography
-        variant="h6"
-        sx={(theme) => ({
-          ...textGradient(
-            `to right, ${theme.vars.palette.secondary.main}, ${theme.vars.palette.warning.main}`
-          ),
-        })}
-      >
-        More features?
-      </Typography>
+     
       <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
         {`From only `}
         <Box component="strong" sx={{ color: 'text.primary' }}>

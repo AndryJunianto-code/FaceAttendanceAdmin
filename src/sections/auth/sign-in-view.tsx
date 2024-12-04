@@ -12,38 +12,59 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { useRouter } from 'src/routes/hooks';
 
 import { Iconify } from 'src/components/iconify';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from 'src/context/AuthContext';
 
 // ----------------------------------------------------------------------
 
 export function SignInView() {
   const router = useRouter();
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSignIn = useCallback(() => {
-    router.push('/');
-  }, [router]);
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const success = login(email, password);
+
+    if (success) {
+      // Redirect to the user page (or home)
+      navigate('/validation'); // or navigate('/home')
+    } else {
+      // Show error message if login failed
+      setErrorMessage('Invalid email or password');
+    }
+  };
 
   const renderForm = (
-    <Box display="flex" flexDirection="column" alignItems="flex-end">
+    <Box  display="flex" flexDirection="column" alignItems="flex-end">
       <TextField
         fullWidth
         name="email"
         label="Email address"
         defaultValue="hello@gmail.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         InputLabelProps={{ shrink: true }}
         sx={{ mb: 3 }}
       />
 
-      <Link variant="body2" color="inherit" sx={{ mb: 1.5 }}>
+     {/*  <Link variant="body2" color="inherit" sx={{ mb: 1.5 }}>
         Forgot password?
-      </Link>
+      </Link> */}
 
       <TextField
         fullWidth
         name="password"
         label="Password"
-        defaultValue="@demo1234"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         InputLabelProps={{ shrink: true }}
         type={showPassword ? 'text' : 'password'}
         InputProps={{
@@ -57,14 +78,14 @@ export function SignInView() {
         }}
         sx={{ mb: 3 }}
       />
-
+      {errorMessage && <Box color="error.main" mb={2}>{errorMessage}</Box>}
       <LoadingButton
         fullWidth
         size="large"
         type="submit"
         color="inherit"
         variant="contained"
-        onClick={handleSignIn}
+        onClick={handleLogin}
       >
         Sign in
       </LoadingButton>
@@ -75,17 +96,17 @@ export function SignInView() {
     <>
       <Box gap={1.5} display="flex" flexDirection="column" alignItems="center" sx={{ mb: 5 }}>
         <Typography variant="h5">Sign in</Typography>
-        <Typography variant="body2" color="text.secondary">
+       {/*  <Typography variant="body2" color="text.secondary">
           Don’t have an account?
           <Link variant="subtitle2" sx={{ ml: 0.5 }}>
             Get started
           </Link>
-        </Typography>
+        </Typography> */}
       </Box>
 
       {renderForm}
 
-      <Divider sx={{ my: 3, '&::before, &::after': { borderTopStyle: 'dashed' } }}>
+      {/* <Divider sx={{ my: 3, '&::before, &::after': { borderTopStyle: 'dashed' } }}>
         <Typography
           variant="overline"
           sx={{ color: 'text.secondary', fontWeight: 'fontWeightMedium' }}
@@ -104,7 +125,7 @@ export function SignInView() {
         <IconButton color="inherit">
           <Iconify icon="ri:twitter-x-fill" />
         </IconButton>
-      </Box>
+      </Box> */}
     </>
   );
 }
