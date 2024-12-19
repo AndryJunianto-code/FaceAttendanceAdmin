@@ -18,7 +18,7 @@ export const DatabasePage = lazy(() => import('src/pages/database'));
 export const SignInPage = lazy(() => import('src/pages/sign-in'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
-
+export const AddFacePage = lazy(() => import('src/pages/addface'));
 // ----------------------------------------------------------------------
 
 const renderFallback = (
@@ -56,6 +56,11 @@ export function Router() {
         { path: 'report', element: (
           <ProtectedRoute>
             <DatabasePage />
+          </ProtectedRoute>
+        ) },
+        { path: 'addface', element: (
+          <ProtectedRoute>
+            <AddFacePage />
           </ProtectedRoute>
         ) },
       ],

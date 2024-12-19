@@ -32,7 +32,7 @@ import type { UserProps } from '../user-table-row';
 interface ReportData {
   user_id: string;
   name:string;
-  date: string;
+  date: Date;
   time: string;
   status: string;
   validated_time: string;

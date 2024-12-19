@@ -19,4 +19,9 @@ export const navData = [
     path: '/report',
     icon: icon('ic-lock'),
   },
+  {
+    title: 'Add Face',
+    path: '/addface',
+    icon: icon('ic-blog'),
+  },
 ];
